@@ -51,7 +51,7 @@
 		<reproducible-build-maven-plugin.version>0.16</reproducible-build-maven-plugin.version>
 		<simplemagic.version>1.17</simplemagic.version>
 		<slf4j.version>1.7.36</slf4j.version>
-		<swagger-api.version>2.0.10</swagger-api.version>
+		<swagger-api.version>2.2.18</swagger-api.version>
 		<swagger-ui.version>5.9.0</swagger-ui.version>
 		<upnp.version>1.2</upnp.version>
 		<versions-maven-plugin.version>2.16.1</versions-maven-plugin.version>
@@ -335,10 +335,8 @@
 						</goals>
 						<configuration>
 							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>org.qortal.controller.Controller</mainClass>
 									<manifestEntries>
 										<Multi-Release>true</Multi-Release>

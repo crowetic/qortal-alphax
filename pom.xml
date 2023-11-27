@@ -46,7 +46,7 @@
 		<maven-surefire-plugin.version>3.2.2</maven-surefire-plugin.version>
 		<package-info-maven-plugin.version>1.1.0</package-info-maven-plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<protobuf.version>3.24.4</protobuf.version>
+		<protobuf.version>3.25.0</protobuf.version>
 		<replacer.version>1.5.3</replacer.version>
 		<reproducible-build-maven-plugin.version>0.16</reproducible-build-maven-plugin.version>
 		<simplemagic.version>1.17</simplemagic.version>
@@ -335,10 +335,8 @@
 						</goals>
 						<configuration>
 							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>org.qortal.controller.Controller</mainClass>
 									<manifestEntries>
 										<Multi-Release>true</Multi-Release>

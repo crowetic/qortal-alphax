@@ -15,7 +15,7 @@
 		<ciyam-at.version>1.4.1</ciyam-at.version>
 		<commons-net.version>3.8.0</commons-net.version>
 		<commons-text.version>1.11.0</commons-text.version>
-		<commons-io.version>2.11.0</commons-io.version>
+		<commons-io.version>2.15.0</commons-io.version>
 		<commons-compress.version>1.24.0</commons-compress.version>
 		<commons-lang3.version>3.13.0</commons-lang3.version>
 		<dagger.version>1.2.2</dagger.version>
@@ -335,10 +335,8 @@
 						</goals>
 						<configuration>
 							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>org.qortal.controller.Controller</mainClass>
 									<manifestEntries>
 										<Multi-Release>true</Multi-Release>

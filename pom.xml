@@ -9,7 +9,7 @@
 		<skipTests>true</skipTests>
 		<altcoinj.version>7dc8c6f</altcoinj.version>
 		<bitcoinj.version>0.15.10</bitcoinj.version>
-		<bouncycastle.version>1.69</bouncycastle.version>
+		<bouncycastle.version>1.70</bouncycastle.version>
 		<build-helper-maven-plugin.version>3.5.0</build-helper-maven-plugin.version>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 		<ciyam-at.version>1.4.1</ciyam-at.version>
@@ -335,10 +335,8 @@
 						</goals>
 						<configuration>
 							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>org.qortal.controller.Controller</mainClass>
 									<manifestEntries>
 										<Multi-Release>true</Multi-Release>

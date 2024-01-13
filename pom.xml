@@ -37,7 +37,7 @@
 		<jsoup.version>1.17.1</jsoup.version>
 		<junit-jupiter-engine.version>5.10.0</junit-jupiter-engine.version>
 		<lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
-		<log4j.version>2.22.0</log4j.version>
+		<log4j.version>2.22.1</log4j.version>
 		<mail.version>1.5.0-b01</mail.version>
 		<maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
 		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
@@ -335,10 +335,8 @@
 						</goals>
 						<configuration>
 							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>org.qortal.controller.Controller</mainClass>
 									<manifestEntries>
 										<Multi-Release>true</Multi-Release>

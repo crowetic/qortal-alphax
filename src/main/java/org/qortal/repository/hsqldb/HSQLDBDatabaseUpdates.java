@@ -1047,6 +1047,11 @@ public class HSQLDBDatabaseUpdates {
 					stmt.execute("CREATE INDEX ArbitraryIdentifierIndex ON ArbitraryTransactions (identifier)");
 					break;
 
+				case 49:
+					// Update blocks minted penalty
+					stmt.execute("UPDATE Accounts SET blocks_minted_penalty = 0 WHERE blocks_minted_penalty <> 0");
+					break;
+
 				default:
 					// nothing to do
 					return false;

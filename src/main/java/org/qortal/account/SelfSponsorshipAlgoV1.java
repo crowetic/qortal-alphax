@@ -2,7 +2,6 @@ package org.qortal.account;
 
 import org.qortal.api.resource.TransactionsResource;
 import org.qortal.asset.Asset;
-import org.qortal.block.BlockChain;
 import org.qortal.data.account.AccountData;
 import org.qortal.data.naming.NameData;
 import org.qortal.data.transaction.*;
@@ -27,7 +26,6 @@ public class SelfSponsorshipAlgoV1 {
     private int consolidationCount = 0;
     private int bulkIssuanceCount = 0;
     private int recentSponsorshipCount = 0;
-    private int transferAssetsCount = 0;
 
     private List<RewardShareTransactionData> sponsorshipRewardShares = new ArrayList<>();
     private final Map<String, List<TransactionData>> paymentsByAddress = new HashMap<>();
@@ -35,7 +33,6 @@ public class SelfSponsorshipAlgoV1 {
     private Set<String> consolidatedAddresses = new LinkedHashSet<>();
     private final Set<String> zeroTransactionAddreses = new LinkedHashSet<>();
     private final Set<String> penaltyAddresses = new LinkedHashSet<>();
-    private final Set<String> transferAssetsByAddress = new LinkedHashSet<>();
 
     public SelfSponsorshipAlgoV1(Repository repository, String address, long snapshotTimestamp, boolean override) throws DataException {
         this.repository = repository;
@@ -70,7 +67,6 @@ public class SelfSponsorshipAlgoV1 {
         this.findBulkIssuance();
         this.findRegisteredNameCount();
         this.findRecentSponsorshipCount();
-        this.transferAssetsCount = this.transferAssetsByAddress.size();
 
         int score = this.calculateScore();
         if (score <= 0 && !override) {
@@ -225,9 +221,7 @@ public class SelfSponsorshipAlgoV1 {
     }
 
     private void findRecentSponsorshipCount() {
-        long snapshotTimestampBefore = BlockChain.getInstance().getSelfSponsorshipAlgoV1SnapshotTimestamp();
-        long diffTimeBetween = this.snapshotTimestamp - snapshotTimestampBefore;
-        final long referenceTimestamp = this.snapshotTimestamp - diffTimeBetween;
+        final long referenceTimestamp = this.snapshotTimestamp - (365 * 24 * 60 * 60 * 1000L);
         int recentSponsorshipCount = 0;
         for (RewardShareTransactionData rewardShare : sponsorshipRewardShares) {
             if (rewardShare.getTimestamp() >= referenceTimestamp) {
@@ -238,13 +232,12 @@ public class SelfSponsorshipAlgoV1 {
     }
 
     private int calculateScore() {
-        final int transferAssetsMultiplier = (this.transferAssetsCount >= 5) ? 10 : 1;
         final int suspiciousMultiplier = (this.suspiciousCount >= 100) ? this.suspiciousPercent : 1;
         final int nameMultiplier = (this.sponsees.size() >= 50 && this.registeredNameCount == 0) ? 2 : 1;
         final int consolidationMultiplier = Math.max(this.consolidationCount, 1);
         final int bulkIssuanceMultiplier = Math.max(this.bulkIssuanceCount / 2, 1);
         final int offset = 9;
-        return transferAssetsMultiplier * suspiciousMultiplier * nameMultiplier * consolidationMultiplier * bulkIssuanceMultiplier - offset;
+        return suspiciousMultiplier * nameMultiplier * consolidationMultiplier * bulkIssuanceMultiplier - offset;
     }
 
     private void fetchSponsorshipRewardShares() throws DataException {
@@ -329,7 +322,6 @@ public class SelfSponsorshipAlgoV1 {
                         if (!Objects.equals(transferAssetTransactionData.getRecipient(), address)) {
                             // Outgoing payment from this account
                             outgoingPaymentRecipients.add(transferAssetTransactionData.getRecipient());
-                            this.transferAssetsByAddress.add(transferAssetTransactionData.getRecipient());
                         }
                     }
                     break;

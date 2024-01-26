@@ -76,7 +76,8 @@ public class BlockChain {
 		feeValidationFixTimestamp,
 		chatReferenceTimestamp,
 		arbitraryOptionalFeeTimestamp,
-		unconfirmableRewardSharesHeight;
+		unconfirmableRewardSharesHeight,
+		unconfirmableTransferPrivsHeight
 	}
 
 	// Custom transaction fees
@@ -561,6 +562,9 @@ public class BlockChain {
 		return this.featureTriggers.get(FeatureTrigger.unconfirmableRewardSharesHeight.name()).intValue();
 	}
 
+	public int getUnconfirmableTransferPrivsHeight() {
+		return this.featureTriggers.get(FeatureTrigger.unconfirmableTransferPrivsHeight.name()).intValue();
+	}
 
 	// More complex getters for aspects that change by height or timestamp
 

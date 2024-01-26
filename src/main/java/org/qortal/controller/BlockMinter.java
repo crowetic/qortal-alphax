@@ -488,6 +488,9 @@ public class BlockMinter extends Thread {
 			if (!transaction.isConfirmableAtHeight(newBlockHeight)) {
 				unconfirmedTransactionsIterator.remove();
 			}
+			if (!transaction.isConfirmableTpHeight(newBlockHeight)) {
+				unconfirmedTransactionsIterator.remove();
+			}
 		}
 
 		// Sign to create block's signature, needed by Block.isValid()

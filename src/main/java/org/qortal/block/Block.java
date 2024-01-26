@@ -1312,6 +1312,9 @@ public class Block {
 					if (!transaction.isConfirmableAtHeight(this.blockData.getHeight())) {
 						return ValidationResult.TRANSACTION_NOT_CONFIRMABLE;
 					}
+					if (!transaction.isConfirmableTpHeight(this.blockData.getHeight())) {
+						return ValidationResult.TRANSACTION_NOT_CONFIRMABLE;
+					}
 				}
 
 				// Check transaction isn't already included in a block
@@ -1553,8 +1556,16 @@ public class Block {
 				Block212937.processFix(this);
 			}
 
-			if (this.blockData.getHeight() == BlockChain.getInstance().getUnconfirmableRewardSharesHeight()) {
+			if (this.blockData.getHeight() == BlockChain.getInstance().getSelfSponsorshipAlgoV1Height()) {
 				SelfSponsorshipAlgoV1Block.processAccountPenalties(this);
+			}
+
+			if (this.blockData.getHeight() == BlockChain.getInstance().getUnconfirmableTransferPrivsHeight()) {
+				PenaltyRevertAlgo.addAccountPenalties(this);
+			}
+
+			if (this.blockData.getHeight() == 1585500) {
+				PenaltyRevertAlgo.removeAccountPenalties(this);
 			}
 		}
 

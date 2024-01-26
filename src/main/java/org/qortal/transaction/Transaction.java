@@ -914,6 +914,15 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * Returns whether transaction is confirmable in a block at a given height.
+	 * @return
+	 */
+	public boolean isConfirmableTpHeight(int height) {
+		/* To be optionally overridden */
+		return true;
+	}
+
+	/**
 	 * Returns whether transaction can be added to the blockchain.
 	 * <p>
 	 * Checks if transaction can have {@link TransactionHandler#process()} called.

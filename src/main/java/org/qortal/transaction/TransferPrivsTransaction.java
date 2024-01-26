@@ -81,6 +81,16 @@ public class TransferPrivsTransaction extends Transaction {
 	}
 
 	@Override
+	public boolean isConfirmableTpHeight(int height) {
+		final int min = BlockChain.getInstance().getUnconfirmableTransferPrivsHeight() - 100;
+		final int max = BlockChain.getInstance().getUnconfirmableTransferPrivsHeight() + 17500;
+		if (height > min && height < max) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
 	public void process() throws DataException {
 		Account sender = this.getSender();
 		Account recipient = this.getRecipient();
